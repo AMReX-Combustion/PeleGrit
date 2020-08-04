@@ -1,7 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 
-project (GRIT)
-include (CTest)
+project (GRIT CXX)
 
 #----------------------------------------------------------------------
 set(PROJECT_TPL_DIR ${CMAKE_SOURCE_DIR}/../TPLs)

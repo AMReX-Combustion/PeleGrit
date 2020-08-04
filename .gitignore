@@ -1,0 +1,17 @@
+*~
+*.swp
+*.cache
+*.aux
+*.log
+*.dvi
+*.lof
+*.toc
+*.out
+*.bak
+.#*
+.panfs.*
+*.svg
+*.bbl
+*.blg
+*.mod
+/build*
