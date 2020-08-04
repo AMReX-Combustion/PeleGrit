@@ -1,0 +1,11 @@
+#!/bin/bash
+module purge
+module load DefApps
+module unload xalt
+module swap xl gcc
+module load git
+module load cuda
+module load cmake
+
+export CTEST_SITE="summit"
+export KOKKOS_DIR=
