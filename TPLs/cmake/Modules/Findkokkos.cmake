@@ -17,9 +17,9 @@ find_path(
 
 find_library(
     KOKKOS_LIBRARY 
-    NAMES kokkos
+    NAMES kokkoscore
     HINTS ${KOKKOS_DIR}
-    PATH_SUFFIXES kokkos lib 
+    PATH_SUFFIXES kokkoscore lib 
 )
 
 find_package_handle_standard_args(

@@ -23,9 +23,8 @@ void GritPeleSprayInterface::advanceSprays(const long int NP, const double dt,
 {
   assert(Spray_Pele::NDUST>=NP);
 
-  //copy from Amr to Grit
-
-  const int NH = 0;
+  //order of interpolation and deposition
+  constexpr int NH = 0;
 
   const double pi = 4.0*atan(1.0);
 
@@ -33,6 +32,7 @@ void GritPeleSprayInterface::advanceSprays(const long int NP, const double dt,
 
   Spray_Pele grit_spray;
 
+  //copy from Amr to Grit
   auto xdhost = Kokkos::create_mirror_view(grit_spray.loc);
   auto udhost = Kokkos::create_mirror_view(grit_spray.vel);
   auto shost  = Kokkos::create_mirror_view(grit_spray.state);
@@ -110,17 +110,17 @@ void GritPeleSprayInterface::advanceSprays(const long int NP, const double dt,
 
   if(DIM==3)
   {
-    LagrangeInterp<0>::interpolateVector(NX-1, NY-1, NZ-1, DIM, NP, Ug, grit_spray.loc, grit_spray.state, Ugpar);
-    LagrangeInterp<0>::interpolateScalar(NX-1, NY-1, NZ-1, NP, rhog, grit_spray.loc, grit_spray.state, rhogpar);
-    LagrangeInterp<0>::interpolateScalar(NX-1, NY-1, NZ-1, NP, Tg, grit_spray.loc, grit_spray.state, Tgpar);
-    LagrangeInterp<0>::interpolateScalar(NX-1, NY-1, NZ-1, NP, Yg, grit_spray.loc, grit_spray.state, Ygpar);
+    LagrangeInterp<NH>::interpolateVector(NX-1, NY-1, NZ-1, DIM, NP, Ug, grit_spray.loc, grit_spray.state, Ugpar);
+    LagrangeInterp<NH>::interpolateScalar(NX-1, NY-1, NZ-1, NP, rhog, grit_spray.loc, grit_spray.state, rhogpar);
+    LagrangeInterp<NH>::interpolateScalar(NX-1, NY-1, NZ-1, NP, Tg, grit_spray.loc, grit_spray.state, Tgpar);
+    LagrangeInterp<NH>::interpolateScalar(NX-1, NY-1, NZ-1, NP, Yg, grit_spray.loc, grit_spray.state, Ygpar);
   }
   else
   {
-    LagrangeInterp<0>::interpolateVector(NX-1, NY-1, DIM, NP, Ug, grit_spray.loc, grit_spray.state, Ugpar);
-    LagrangeInterp<0>::interpolateScalar(NX-1, NY-1, NP, rhog, grit_spray.loc, grit_spray.state, rhogpar);
-    LagrangeInterp<0>::interpolateScalar(NX-1, NY-1, NP, Tg, grit_spray.loc, grit_spray.state, Tgpar);
-    LagrangeInterp<0>::interpolateScalar(NX-1, NY-1, NP, Yg, grit_spray.loc, grit_spray.state, Ygpar);
+    LagrangeInterp<NH>::interpolateVector(NX-1, NY-1, DIM, NP, Ug, grit_spray.loc, grit_spray.state, Ugpar);
+    LagrangeInterp<NH>::interpolateScalar(NX-1, NY-1, NP, rhog, grit_spray.loc, grit_spray.state, rhogpar);
+    LagrangeInterp<NH>::interpolateScalar(NX-1, NY-1, NP, Tg, grit_spray.loc, grit_spray.state, Tgpar);
+    LagrangeInterp<NH>::interpolateScalar(NX-1, NY-1, NP, Yg, grit_spray.loc, grit_spray.state, Ygpar);
   }
 
   Spray_Pele::ScalarPointType Tv("Tv");
@@ -354,15 +354,15 @@ void GritPeleSprayInterface::advanceSprays(const long int NP, const double dt,
 
   if(DIM==3)
   {
-    GaussianDeposit<0>::depositVectr3(NX-1, NY-1, NZ-1, DIM, NP, Srcug, grit_spray.loc, grit_spray.state, srcu);
-    GaussianDeposit<0>::depositScalar(NX-1, NY-1, NZ-1, NP, Srcmg, grit_spray.loc, grit_spray.state, srcm);
-    GaussianDeposit<0>::depositScalar(NX-1, NY-1, NZ-1, NP, Srceg, grit_spray.loc, grit_spray.state, srce);
+    GaussianDeposit<NH>::depositVectr3(NX-1, NY-1, NZ-1, DIM, NP, Srcug, grit_spray.loc, grit_spray.state, srcu);
+    GaussianDeposit<NH>::depositScalar(NX-1, NY-1, NZ-1, NP, Srcmg, grit_spray.loc, grit_spray.state, srcm);
+    GaussianDeposit<NH>::depositScalar(NX-1, NY-1, NZ-1, NP, Srceg, grit_spray.loc, grit_spray.state, srce);
   }
   else
   {
-    GaussianDeposit<0>::depositVectr3(NX-1, NY-1, DIM, NP, Srcug, grit_spray.loc, grit_spray.state, srcu);
-    GaussianDeposit<0>::depositScalar(NX-1, NY-1, NP, Srcmg, grit_spray.loc, grit_spray.state, srcm);
-    GaussianDeposit<0>::depositScalar(NX-1, NY-1, NP, Srceg, grit_spray.loc, grit_spray.state, srce);
+    GaussianDeposit<NH>::depositVectr3(NX-1, NY-1, DIM, NP, Srcug, grit_spray.loc, grit_spray.state, srcu);
+    GaussianDeposit<NH>::depositScalar(NX-1, NY-1, NP, Srcmg, grit_spray.loc, grit_spray.state, srcm);
+    GaussianDeposit<NH>::depositScalar(NX-1, NY-1, NP, Srceg, grit_spray.loc, grit_spray.state, srce);
   }
 
   auto suhost = Kokkos::create_mirror_view(Srcug);

@@ -69,5 +69,5 @@ message(STATUS "HOSTNAME is " ${HOSTNAME})
 message(STATUS "CMAKE_BUILD_TYPE is " ${CMAKE_BUILD_TYPE})
 
 #-----------------------------------------------------------------------
-add_library(gritpelesprayinterface ${CMAKE_SOURCE_DIR}/GritPeleSprayInterface.C RunParams.C Utils.C)
+add_library(gritpelesprayinterface ${CMAKE_SOURCE_DIR}/GritPeleSprayInterface.C)
 set_property(TARGET gritpelesprayinterface APPEND PROPERTY COMPILE_DEFINITIONS BLOCKNDUST=6400)

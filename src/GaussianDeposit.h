@@ -12,8 +12,8 @@ class GaussianDeposit {
     // 3-D
     static void depositVectr3(const int NX, const int NY, const int NZ, 
                               const int NV, const int NP,
-                              Yarn::VectorFieldType F, Dust::LocationVecType loc, 
-                              Dust::PointHealthType state, Dust::Vectr3PointType P) 
+                              Yarn::VectorFieldType F, Dust_Pele::Vectr3PointType loc, 
+                              Dust_Pele::HealthPointType state, Dust_Pele::Vectr3PointType P) 
     {
       assert(F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH)*(NZ+1+2*NH));
 
@@ -70,8 +70,8 @@ class GaussianDeposit {
     /* ---------------------------------------------------------------------- */
     // 2-D
     static void depositVectr3(const int NX, const int NY, const int NV, const int NP,
-                              Yarn::VectorFieldType F, Dust::LocationVecType loc, 
-                              Dust::PointHealthType state, Dust::Vectr3PointType P) 
+                              Yarn::VectorFieldType F, Dust_Pele::Vectr3PointType loc, 
+                              Dust_Pele::HealthPointType state, Dust_Pele::Vectr3PointType P) 
     {
       assert(F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH));
 
@@ -117,8 +117,8 @@ class GaussianDeposit {
     /* ---------------------------------------------------------------------- */
     // 2-D
     static void depositScalar(const int NX, const int NY, const int NP,
-                              Yarn::ScalarFieldType F, Dust::LocationVecType loc, 
-                              Dust::PointHealthType state, Dust::ScalarPointType P) 
+                              Yarn::ScalarFieldType F, Dust_Pele::Vectr3PointType loc, 
+                              Dust_Pele::HealthPointType state, Dust_Pele::ScalarPointType P) 
     {
       assert(F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH));
 
@@ -162,8 +162,8 @@ class GaussianDeposit {
     /* ---------------------------------------------------------------------- */
     // 3-D
     static void depositScalar(const int NX, const int NY, const int NZ, const int NP,
-                              Yarn::ScalarFieldType F, Dust::LocationVecType loc, 
-                              Dust::PointHealthType state, Dust::ScalarPointType P) 
+                              Yarn::ScalarFieldType F, Dust_Pele::Vectr3PointType loc, 
+                              Dust_Pele::HealthPointType state, Dust_Pele::ScalarPointType P) 
     {
       assert(F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH)*(NZ+1+2*NH));
 

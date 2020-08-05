@@ -8,8 +8,8 @@ class LagrangeInterp {
     // interpolation of the scalars
     // 2-D
     static void interpolateScalar(int NX, int NY, const int NP,
-            Yarn::StridedScalarFieldType F, Dust::LocationVecType loc,
-            Dust::PointHealthType state, Dust::StridedScalarPointType P)
+            Yarn::StridedScalarFieldType F, Dust_Pele::Vectr3PointType loc,
+            Dust_Pele::HealthPointType state, Dust_Pele::StridedScalarPointType P)
     {
     /* ---------------------------------------------------------------------- */
       assert(F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH));
@@ -49,8 +49,8 @@ class LagrangeInterp {
     /* ---------------------------------------------------------------------- */
     // 3-D
     static void interpolateScalar(int NX, int NY, int NZ, const int NP,
-            Yarn::StridedScalarFieldType F, Dust::LocationVecType loc,
-            Dust::PointHealthType state, Dust::StridedScalarPointType P)
+            Yarn::StridedScalarFieldType F, Dust_Pele::Vectr3PointType loc,
+            Dust_Pele::HealthPointType state, Dust_Pele::StridedScalarPointType P)
     {
     /* ---------------------------------------------------------------------- */
       assert(F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH)*(NZ+1+2*NH));
@@ -105,8 +105,8 @@ class LagrangeInterp {
     // interpolation of vectors
     // 2-D
     static void interpolateVector(int NX, int NY, int NV, const int NP,
-		Yarn::VectorFieldType F, Dust::LocationVecType loc,
-		Dust::PointHealthType state, Dust::LocationVecType P){
+		Yarn::VectorFieldType F, Dust_Pele::Vectr3PointType loc,
+		Dust_Pele::HealthPointType state, Dust_Pele::Vectr3PointType P){
       /* ---------------------------------------------------------------------- */
       assert(
         F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH) &&
@@ -144,8 +144,8 @@ class LagrangeInterp {
   /* ---------------------------------------------------------------------- */
   // 3-D
   static void interpolateVector(int NX, int NY, int NZ, int NV, const int NP,
-  Yarn::VectorFieldType F, Dust::LocationVecType loc,
-	Dust::PointHealthType state, Dust::LocationVecType P){
+  Yarn::VectorFieldType F, Dust_Pele::Vectr3PointType loc,
+	Dust_Pele::HealthPointType state, Dust_Pele::Vectr3PointType P){
   /* ---------------------------------------------------------------------- */
     assert(
       F.dimension_0()==(NX+1+2*NH)*(NY+1+2*NH)*(NZ+1+2*NH) &&
