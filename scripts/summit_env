@@ -9,3 +9,4 @@ module load cmake
 
 export CTEST_SITE="summit"
 export KOKKOS_DIR=
+export GRIT_DIR=

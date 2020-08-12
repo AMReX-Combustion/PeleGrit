@@ -43,8 +43,7 @@ Blocs := .
 include $(PELEC_HOME)/ExecCpp/Make.PeleC
 
 #link to grit
-#LIBRARIES += -L$(GRIT_LIB) -lgritpeleinterface
-LIBRARIES += -L$(GRIT_LIB) -lgritpelesprayinterface
+LIBRARIES += -L$(GRIT_DIR)/buildCuda -lgritpelesprayinterface
 LIBRARIES += -L$(CUDA_LIB) -lcudart
-LIBRARIES += -L$(KOKKOS_LIB) -lkokkos
+LIBRARIES += -L$(KOKKOS_DIR)/lib -lkokkos
 LIBRARIES += -ldl
