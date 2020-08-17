@@ -772,7 +772,6 @@ void SprayParticleContainer::copyPeleAoStoGrit(const amrex::ArrayOfStructs<6,0>&
       for(size_t l=0; l<AMREX_SPACEDIM; l++)
       {
         pele_grit.ptr_spray[n].x[l] = (p.pos(l)-plo[l])/dx[l] - 0.5 - begin[l];
-        //std::cout<< "l=" << l << ", x=" << pele_grit.ptr_spray[n].x[l] << std::endl;
         pele_grit.ptr_spray[n].u[l] = p.rdata(PeleC::pstateVel+l);
       }
     }
@@ -789,9 +788,6 @@ void SprayParticleContainer::copyGrittoPeleAoS(amrex::ArrayOfStructs<6,0>& pelep
                                                const amrex::GpuArray<double, 2ul>& dx, 
                                                const amrex::Array4<const double>& statearr)
 {
-  //auto gritAoS = std::unique_ptr<PeleParticle[]>(new PeleParticle[np]);
-  //gritAoS = std::move(pele_grit.ptr_dust);
-
   double begin[3];
   begin[0]=(double)statearr.begin.x;
   begin[1]=(double)statearr.begin.y;
@@ -804,8 +800,6 @@ void SprayParticleContainer::copyGrittoPeleAoS(amrex::ArrayOfStructs<6,0>& pelep
     {
       for(size_t l=0; l<AMREX_SPACEDIM; l++)
       {
-        //p.pos(l) = gritAoS[n].x[l];
-        //p.rdata(PeleC::pstateVel+l) = gritAoS[n].u[l];
         p.pos(l) = (pele_grit.ptr_spray[n].x[l]+0.5+begin[l])*dx[l]+plo[l];
         p.rdata(PeleC::pstateVel+l) = pele_grit.ptr_spray[n].u[l];
       }

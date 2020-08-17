@@ -11,6 +11,7 @@ void GritPeleSprayInterface::initializeGrit()
 {
   Kokkos::initialize();
   ptr_spray = std::unique_ptr<PeleSprayParticle[]>(new PeleSprayParticle[Spray_Pele::NDUST]);
+  std::cout << "Grit is initialized" << std::endl;
 }
 
 void GritPeleSprayInterface::advanceSprays(const long int NP, const double dt, 

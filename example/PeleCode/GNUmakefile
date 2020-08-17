@@ -45,5 +45,5 @@ include $(PELEC_HOME)/ExecCpp/Make.PeleC
 #link to grit
 LIBRARIES += -L$(GRIT_DIR)/buildCuda -lgritpelesprayinterface
 LIBRARIES += -L$(CUDA_LIB) -lcudart
-LIBRARIES += -L$(KOKKOS_DIR)/lib -lkokkos
+LIBRARIES += -L$(KOKKOS_DIR)/lib -lkokkoscore
 LIBRARIES += -ldl
