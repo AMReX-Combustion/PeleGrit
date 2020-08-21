@@ -14,7 +14,7 @@ option(GRIT_USE_CUDA "Is it a CUDA build?" ON)
 
 if(GRIT_USE_CUDA)
   set(CMAKE_CXX_COMPILER ${KOKKOS_DIR}/bin/nvcc_wrapper)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -expt-extended-lambda -g") 
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -expt-extended-lambda")
 endif()
 
 include_directories(${MPI_CXX_INCLUDE_PATH})
@@ -70,4 +70,8 @@ message(STATUS "CMAKE_BUILD_TYPE is " ${CMAKE_BUILD_TYPE})
 
 #-----------------------------------------------------------------------
 add_library(gritpelesprayinterface ${CMAKE_SOURCE_DIR}/GritPeleSprayInterface.C)
-set_property(TARGET gritpelesprayinterface APPEND PROPERTY COMPILE_DEFINITIONS BLOCKNDUST=6400)
+set_property(TARGET gritpelesprayinterface APPEND PROPERTY COMPILE_DEFINITIONS BLOCKNDUST=4800)
+
+add_executable(ParallelforTest ParallelforTest.C)
+target_link_libraries(ParallelforTest ${LIBRARIESLIST})
+
