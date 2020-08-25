@@ -4,8 +4,8 @@
 
 __global__ void parallel_for(const int n, double* da) {
     int tid = threadIdx.x + blockIdx.x*blockDim.x;
-    double dummy = 123.456;
     if (tid < n) {
+        double dummy = 123.456;
         da[tid] = dummy + 123.456*dummy;
     }
 }
