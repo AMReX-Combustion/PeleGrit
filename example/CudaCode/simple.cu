@@ -45,7 +45,7 @@ int main()
 
   auto finish_clock = Time::now();
   fsec fs = finish_clock - start_clock;
-  std::cout << "time taken for cuda parallel fro (msecs):" << fs.count()*1e3 << std::endl;
+  std::cout << "time taken for cuda parallel for (msecs):" << fs.count()*1e3 << std::endl;
 
   cudaFree(da);
 
