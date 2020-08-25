@@ -3,15 +3,17 @@
 #include <cuda_profiler_api.h>
 
 __global__ void parallel_for(const int n, double* da) {
-    int index = threadIdx.x + blockIdx.x*blockDim.x;
+    int tid = threadIdx.x + blockIdx.x*blockDim.x;
     double dummy = 123.456;
-    da[index] = dummy + 123.456*dummy;
+    if (tid < n) {
+        da[tid] = dummy + 123.456*dummy;
+    }
 }
 
 int main()
 {
   const int N = 460000000;
-  int blockSize = 32;
+  int blockSize = 256;
   int numBlocks = (N + blockSize -1) / blockSize;
 
   double* da;
