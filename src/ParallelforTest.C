@@ -1,5 +1,6 @@
 #include <Kokkos_Core.hpp>
 #include <iostream>
+#include <cuda_profiler_api.h>
 
 int main(int argc, char *argv[])
 {
@@ -8,12 +9,16 @@ int main(int argc, char *argv[])
 
   const size_t NP = 460000000;
 
+{
+  Kokkos::View<double*, Kokkos::CudaSpace> da ("da", NP);
+
   //warm up
-  for(size_t i=0; i<100; i++)
+  for(size_t i=0; i<10; i++)
   {
     Kokkos::parallel_for(NP, KOKKOS_LAMBDA (const size_t& n) 
     {
-      double dummy0 = 1.0;
+      double dummy = 123.456;
+      da(n) = dummy + 123.456*dummy;
     });
   }
 
@@ -25,20 +30,25 @@ int main(int argc, char *argv[])
   
   //Kokkos::View<double*, Kokkos::CudaSpace> dummy ("dummy", NP);
 
+  cudaProfilerStart();
+
   for(size_t i=0; i<10; i++)
   {
-    //Kokkos::View<double*, Kokkos::CudaSpace> dummy ("dummy", NP);
-    //Kokkos::View<double*> dummy ("dummy", NP);
     Kokkos::parallel_for(NP, KOKKOS_LAMBDA (const size_t& n) 
     {
-      double dummy0 = 1.0;
-      double dummy1 = dummy0 + 334.343*dummy0;
+      double dummy = 123.456;
+      da(n) = dummy + 123.456*dummy;
     });
   }
-    Kokkos::fence();
+
+  Kokkos::fence();
+
+  cudaProfilerStop();
+
     auto finish_clock = Time::now();
     fsec fs = finish_clock - start_clock;
     std::cout<<"time taken is (msecs):" << fs.count()*1e3 << std::endl;
   
+  }
   return 0;
 }

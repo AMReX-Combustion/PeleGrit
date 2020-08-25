@@ -11,7 +11,7 @@ __global__ void parallel_for(const int n, double* da) {
 int main()
 {
   const int N = 460000000;
-  int blockSize = 256;
+  int blockSize = 32;
   int numBlocks = (N + blockSize -1) / blockSize;
 
   double* da;
