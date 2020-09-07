@@ -1,0 +1,72 @@
+"""
+*****************************************
+ Dummy "mechanism" to represent
+ a simple 3species system for
+ n-decane non-reacting spray
+ data culled from dodecane_lu mech
+*****************************************
+
+
+"""
+
+units(length='cm', time='s', quantity='mol', act_energy='cal/mol')
+
+ideal_gas(name='gas',
+          elements="C H O N",
+          species="""NC10H22  O2       N2""",
+          transport='Mix',
+          initial_state=state(temperature=300.0, pressure=OneAtm))
+
+#-------------------------------------------------------------------------------
+# Species data
+#-------------------------------------------------------------------------------
+
+species(name=u'NC10H22',
+        atoms='H:22 C:10',
+        thermo=(NASA([300.00, 1391.00],
+                     [-2.08416969E+00,  1.22535012E-01, -7.76815739E-05,
+                       2.49834877E-08, -3.23548038E-12, -3.43021863E+04,
+                       4.42260140E+01]),
+                NASA([1391.00, 5000.00],
+                     [ 3.19882239E+01,  4.77244922E-02, -1.62276391E-05,
+                       2.50963259E-09, -1.45215772E-13, -4.66392840E+04,
+                      -1.40504121E+02])),
+        transport=gas_transport(geom='nonlinear',
+                                diam=6.675,
+                                well_depth=704.917,
+                                rot_relax=1.0),
+        note=u'1/2/7THERM')
+
+species(name=u'O2',
+        atoms='O:2',
+        thermo=(NASA([200.00, 1000.00],
+                     [ 3.78245636E+00, -2.99673416E-03,  9.84730201E-06,
+                      -9.68129509E-09,  3.24372837E-12, -1.06394356E+03,
+                       3.65767573E+00]),
+                NASA([1000.00, 3500.00],
+                     [ 3.28253784E+00,  1.48308754E-03, -7.57966669E-07,
+                       2.09470555E-10, -2.16717794E-14, -1.08845772E+03,
+                       5.45323129E+00])),
+        transport=gas_transport(geom='linear',
+                                diam=3.458,
+                                well_depth=107.4,
+                                polar=1.6,
+                                rot_relax=3.8),
+        note=u'TPIS89')
+
+species(name=u'N2',
+        atoms='N:2',
+        thermo=(NASA([300.00, 1000.00],
+                     [ 3.29867700E+00,  1.40824040E-03, -3.96322200E-06,
+                       5.64151500E-09, -2.44485400E-12, -1.02089990E+03,
+                       3.95037200E+00]),
+                NASA([1000.00, 5000.00],
+                     [ 2.92664000E+00,  1.48797680E-03, -5.68476000E-07,
+                       1.00970380E-10, -6.75335100E-15, -9.22797700E+02,
+                       5.98052800E+00])),
+        transport=gas_transport(geom='linear',
+                                diam=3.621,
+                                well_depth=97.53,
+                                polar=1.76,
+                                rot_relax=4.0),
+        note=u'121286')
