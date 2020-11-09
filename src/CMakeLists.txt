@@ -10,11 +10,16 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_TPL_DIR}/cmake/Modules)
 find_package(kokkos REQUIRED)
 include_directories(${KOKKOS_INCLUDE_DIRS})
 
-option(GRIT_USE_CUDA "Is it a CUDA build?" ON)
+option(GRIT_USE_CUDA "Is it a CUDA build?" OFF)
 
 if(GRIT_USE_CUDA)
-  set(CMAKE_CXX_COMPILER ${KOKKOS_DIR}/bin/nvcc_wrapper)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -expt-extended-lambda")
+	set(CMAKE_CXX_COMPILER ${KOKKOS_DIR}/bin/nvcc_wrapper)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --expt-extended-lambda")
+endif()
+
+if(GRIT_USE_HIP)
+	set(CMAKE_CXX_COMPILER hipcc)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-gpu-rdc --amdgpu-target=gfx906,gfx908")
 endif()
 
 include_directories(${MPI_CXX_INCLUDE_PATH})
@@ -69,9 +74,9 @@ message(STATUS "HOSTNAME is " ${HOSTNAME})
 message(STATUS "CMAKE_BUILD_TYPE is " ${CMAKE_BUILD_TYPE})
 
 #-----------------------------------------------------------------------
-add_library(gritpelesprayinterface ${CMAKE_SOURCE_DIR}/GritPeleSprayInterface.C)
+add_library(gritpelesprayinterface ${CMAKE_SOURCE_DIR}/GritPeleSprayInterface.cpp)
 set_property(TARGET gritpelesprayinterface APPEND PROPERTY COMPILE_DEFINITIONS BLOCKNDUST=4800)
 
-add_executable(ParallelforTest ParallelforTest.C)
+add_executable(ParallelforTest ParallelforTest.cpp)
 target_link_libraries(ParallelforTest ${LIBRARIESLIST})
 
